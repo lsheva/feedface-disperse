@@ -30,7 +30,7 @@ const { viem, networkName } = await network.connect();
 const [deployer] = await viem.getWalletClients();
 const publicClient = await viem.getPublicClient();
 
-const artifact = await artifacts.readArtifact("MultiSend");
+const artifact = await artifacts.readArtifact("FeedFaceDisperse");
 const bytecode = artifact.bytecode as `0x${string}`;
 const initCodeHash = keccak256(bytecode);
 

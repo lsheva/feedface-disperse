@@ -1,9 +1,11 @@
 {
   "name": "feedface-multisend",
+  "author": "Oleksandr (Shev) Shevchuk <shev@titan.io>",
+  "license": "MIT",
   "private": true,
   "type": "module",
   "scripts": {
-    "compile": "wagmi generate && cp artifacts/contracts/FeedFaceMultisend.sol/FeedFaceMultisend.json abi/FeedFaceMultisend.json",
+    "compile": "wagmi generate && mkdir -p abi && cp artifacts/contracts/FeedFaceDisperse.sol/FeedFaceDisperse.json abi/FeedFaceDisperse.json",
     "test": "hardhat test",
     "init-code-hash": "hardhat run scripts/init-code-hash.ts",
     "deploy:network": "hardhat run scripts/deploy.ts",
@@ -13,10 +15,10 @@
     "@nomicfoundation/hardhat-toolbox-viem": "^5.0.3",
     "@nomicfoundation/hardhat-verify": "^3.0.12",
     "@wagmi/cli": "^2.10.0",
-    "hardhat": "^3.2.0",
-    "viem": "^2.47.6"
+    "hardhat": "^3.2.0"
   },
   "dependencies": {
-    "@openzeppelin/contracts": "^5.6.1"
+    "@openzeppelin/contracts": "^5.6.1",
+    "viem": "^2.47.6"
   }
 }

@@ -4,7 +4,7 @@ import { hardhat } from "@wagmi/cli/plugins";
 export default defineConfig({
   plugins: [
     hardhat({
-      artifacts: "./artifacts/contracts/FeedFaceMultisend.sol",
+      artifacts: "./artifacts/contracts/FeedFaceDisperse.sol",
       project: ".",
       commands: {
         build: "pnpm hardhat compile",
@@ -12,5 +12,5 @@ export default defineConfig({
       },
     }),
   ],
-  out: "./abi/FeedFaceMultisend.ts",
+  out: "./abi/FeedFaceDisperse.ts",
 });

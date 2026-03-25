@@ -11,6 +11,9 @@ importers:
       '@openzeppelin/contracts':
         specifier: ^5.6.1
         version: 5.6.1
+      viem:
+        specifier: ^2.47.6
+        version: 2.47.6(zod@3.25.76)
     devDependencies:
       '@nomicfoundation/hardhat-toolbox-viem':
         specifier: ^5.0.3
@@ -24,9 +27,6 @@ importers:
       hardhat:
         specifier: ^3.2.0
         version: 3.2.0
-      viem:
-        specifier: ^2.47.6
-        version: 2.47.6(zod@3.25.76)
 
 packages:
 

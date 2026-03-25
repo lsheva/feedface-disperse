@@ -24,7 +24,7 @@ export default defineConfig({
     sepolia: { type: "http", url: alchemy("eth-sepolia"), accounts },
     "arbitrum-sepolia": { type: "http", url: alchemy("arb-sepolia"), accounts },
     "base-sepolia": { type: "http", chainType: "op", url: alchemy("base-sepolia"), accounts },
-    "optimistm-sepolia": { type: "http", chainType: "op", url: alchemy("opt-sepolia"), accounts },
+    "optimism-sepolia": { type: "http", chainType: "op", url: alchemy("opt-sepolia"), accounts },
 
     // Mainnets
     ethereum: { type: "http", url: alchemy("eth-mainnet"), accounts },
