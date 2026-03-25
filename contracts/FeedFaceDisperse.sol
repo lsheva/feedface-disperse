@@ -63,9 +63,9 @@ contract FeedFaceDisperse {
         Permit[] calldata permits
     ) external payable {
         for (uint256 i = 0; i < permits.length;) {
-            IERC20Permit(permits[i].token).permit(
+            try IERC20Permit(permits[i].token).permit(
                 msg.sender, address(this), permits[i].value, permits[i].deadline, permits[i].v, permits[i].r, permits[i].s
-            );
+            ) {} catch {}
             unchecked {
                 ++i;
             }
