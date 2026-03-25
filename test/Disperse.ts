@@ -6,23 +6,23 @@ const { viem, networkHelpers } = await hre.network.connect();
 const ETH_1 = 1_000_000_000_000_000_000n;
 
 async function deployFixture() {
-  const multiSend = await viem.deployContract("FeedFaceDisperse");
+  const disperse = await viem.deployContract("FeedFaceDisperse");
   const token = await viem.deployContract("MockERC20Permit", ["TestToken", "TT"]);
   const [deployer, alice, bob, charlie] = await viem.getWalletClients();
   const publicClient = await viem.getPublicClient();
-  return { multiSend, token, deployer, alice, bob, charlie, publicClient };
+  return { disperse, token, deployer, alice, bob, charlie, publicClient };
 }
 
 describe("Disperse", () => {
   describe("ETH transfers", () => {
     it("sends ETH to multiple recipients", async () => {
-      const { multiSend, alice, bob, publicClient } =
+      const { disperse, alice, bob, publicClient } =
         await networkHelpers.loadFixture(deployFixture);
 
       const aliceBefore = await publicClient.getBalance({ address: alice.account.address });
       const bobBefore = await publicClient.getBalance({ address: bob.account.address });
 
-      await multiSend.write.disperse(
+      await disperse.write.disperse(
         [
           [
             { to: alice.account.address, amount: ETH_1 },
@@ -41,12 +41,12 @@ describe("Disperse", () => {
     });
 
     it("refunds excess ETH to msg.sender", async () => {
-      const { multiSend, deployer, alice, publicClient } =
+      const { disperse, deployer, alice, publicClient } =
         await networkHelpers.loadFixture(deployFixture);
 
       const senderBefore = await publicClient.getBalance({ address: deployer.account.address });
 
-      const hash = await multiSend.write.disperse(
+      const hash = await disperse.write.disperse(
         [[{ to: alice.account.address, amount: ETH_1 }], [], []],
         { value: ETH_1 * 5n },
       );
@@ -59,13 +59,13 @@ describe("Disperse", () => {
     });
 
     it("reverts when not enough ETH is sent", async () => {
-      const { multiSend, alice } = await networkHelpers.loadFixture(deployFixture);
+      const { disperse, alice } = await networkHelpers.loadFixture(deployFixture);
 
       await viem.assertions.revertWithCustomError(
-        multiSend.write.disperse([[{ to: alice.account.address, amount: ETH_1 }], [], []], {
+        disperse.write.disperse([[{ to: alice.account.address, amount: ETH_1 }], [], []], {
           value: ETH_1 / 2n,
         }),
-        multiSend,
+        disperse,
         "EthTransferFailed",
       );
     });
@@ -73,13 +73,13 @@ describe("Disperse", () => {
 
   describe("ERC20 transfers", () => {
     it("transfers tokens via transferFrom with sender param", async () => {
-      const { multiSend, token, deployer, alice, bob } =
+      const { disperse, token, deployer, alice, bob } =
         await networkHelpers.loadFixture(deployFixture);
 
       await token.write.mint([deployer.account.address, ETH_1 * 100n]);
-      await token.write.approve([multiSend.address, ETH_1 * 100n]);
+      await token.write.approve([disperse.address, ETH_1 * 100n]);
 
-      await multiSend.write.disperse([
+      await disperse.write.disperse([
         [],
         [
           { token: token.address, to: alice.account.address, amount: ETH_1 * 30n },
@@ -95,12 +95,12 @@ describe("Disperse", () => {
     });
 
     it("reverts when sender has no allowance", async () => {
-      const { multiSend, token, deployer, alice } = await networkHelpers.loadFixture(deployFixture);
+      const { disperse, token, deployer, alice } = await networkHelpers.loadFixture(deployFixture);
 
       await token.write.mint([deployer.account.address, ETH_1 * 100n]);
 
       await viem.assertions.revertWith(
-        multiSend.write.disperse([
+        disperse.write.disperse([
           [],
           [{ token: token.address, to: alice.account.address, amount: ETH_1 }],
           [],
@@ -112,7 +112,7 @@ describe("Disperse", () => {
 
   describe("ERC20 with permit", () => {
     it("executes permit then transfers tokens without prior approval", async () => {
-      const { multiSend, token, deployer, alice, publicClient } =
+      const { disperse, token, deployer, alice, publicClient } =
         await networkHelpers.loadFixture(deployFixture);
 
       await token.write.mint([deployer.account.address, ETH_1 * 100n]);
@@ -143,7 +143,7 @@ describe("Disperse", () => {
         primaryType: "Permit",
         message: {
           owner: deployer.account.address,
-          spender: multiSend.address,
+          spender: disperse.address,
           value: ETH_1 * 50n,
           nonce,
           deadline,
@@ -154,7 +154,7 @@ describe("Disperse", () => {
       const s = `0x${signature.slice(66, 130)}` as `0x${string}`;
       const v = parseInt(signature.slice(130, 132), 16);
 
-      await multiSend.write.disperse([
+      await disperse.write.disperse([
         [],
         [{ token: token.address, to: alice.account.address, amount: ETH_1 * 50n }],
         [{ token: token.address, value: ETH_1 * 50n, deadline, v, r, s }],
@@ -167,31 +167,31 @@ describe("Disperse", () => {
 
   describe("SafeERC20 handling", () => {
     it("reverts when token returns false from transferFrom", async () => {
-      const { multiSend, deployer, alice } = await networkHelpers.loadFixture(deployFixture);
+      const { disperse, deployer, alice } = await networkHelpers.loadFixture(deployFixture);
 
       const badToken = await viem.deployContract("MockERC20ReturnsFalse");
       await badToken.write.mint([deployer.account.address, ETH_1 * 100n]);
-      await badToken.write.approve([multiSend.address, ETH_1 * 100n]);
+      await badToken.write.approve([disperse.address, ETH_1 * 100n]);
 
       await viem.assertions.revertWithCustomError(
-        multiSend.write.disperse([
+        disperse.write.disperse([
           [],
           [{ token: badToken.address, to: alice.account.address, amount: ETH_1 }],
           [],
         ]),
-        multiSend,
+        disperse,
         "SafeERC20FailedOperation",
       );
     });
 
     it("succeeds with token that returns no data from transferFrom (USDT-like)", async () => {
-      const { multiSend, deployer, alice } = await networkHelpers.loadFixture(deployFixture);
+      const { disperse, deployer, alice } = await networkHelpers.loadFixture(deployFixture);
 
       const noReturnToken = await viem.deployContract("MockERC20NoReturn");
       await noReturnToken.write.mint([deployer.account.address, ETH_1 * 100n]);
-      await noReturnToken.write.approve([multiSend.address, ETH_1 * 100n]);
+      await noReturnToken.write.approve([disperse.address, ETH_1 * 100n]);
 
-      await multiSend.write.disperse([
+      await disperse.write.disperse([
         [],
         [{ token: noReturnToken.address, to: alice.account.address, amount: ETH_1 * 10n }],
         [],
@@ -204,15 +204,15 @@ describe("Disperse", () => {
 
   describe("mixed ETH + ERC20", () => {
     it("disperses ETH and tokens in a single call", async () => {
-      const { multiSend, token, deployer, alice, bob, charlie, publicClient } =
+      const { disperse, token, deployer, alice, bob, charlie, publicClient } =
         await networkHelpers.loadFixture(deployFixture);
 
       await token.write.mint([deployer.account.address, ETH_1 * 100n]);
-      await token.write.approve([multiSend.address, ETH_1 * 100n]);
+      await token.write.approve([disperse.address, ETH_1 * 100n]);
 
       const aliceEthBefore = await publicClient.getBalance({ address: alice.account.address });
 
-      await multiSend.write.disperse(
+      await disperse.write.disperse(
         [
           [{ to: alice.account.address, amount: ETH_1 }],
           [
