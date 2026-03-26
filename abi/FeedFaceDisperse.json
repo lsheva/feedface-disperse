@@ -9,7 +9,13 @@
       "type": "error"
     },
     {
-      "inputs": [],
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        }
+      ],
       "name": "EthTransferFailed",
       "type": "error"
     },

@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import hre from "hardhat";
+import { getAddress } from "viem";
 
 const { viem, networkHelpers } = await hre.network.connect();
 const ETH_1 = 1_000_000_000_000_000_000n;
@@ -58,15 +59,16 @@ describe("Disperse", () => {
       assert.equal(senderBefore - senderAfter - gasUsed, ETH_1);
     });
 
-    it("reverts when not enough ETH is sent", async () => {
+    it("reverts when not enough ETH is sent, with EthTransferFailed(to) set to the recipient", async () => {
       const { disperse, alice } = await networkHelpers.loadFixture(deployFixture);
 
-      await viem.assertions.revertWithCustomError(
+      await viem.assertions.revertWithCustomErrorWithArgs(
         disperse.write.disperse([[{ to: alice.account.address, amount: ETH_1 }], [], []], {
           value: ETH_1 / 2n,
         }),
         disperse,
         "EthTransferFailed",
+        [getAddress(alice.account.address)],
       );
     });
   });

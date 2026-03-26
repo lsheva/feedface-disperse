@@ -15,7 +15,8 @@ contract FeedFaceDisperse {
     using SafeERC20 for IERC20;
 
     /// @dev Reverts when an ETH transfer to a recipient fails.
-    error EthTransferFailed();
+    /// @param to Recipient address whose transfer failed.
+    error EthTransferFailed(address to);
 
     /// @dev Reverts when refunding excess ETH to msg.sender fails.
     error EthRefundFailed();
@@ -74,7 +75,7 @@ contract FeedFaceDisperse {
         uint256 ethSpent;
         for (uint256 i = 0; i < ethTransfers.length;) {
             (bool ok,) = ethTransfers[i].to.call{value: ethTransfers[i].amount}("");
-            if (!ok) revert EthTransferFailed();
+            if (!ok) revert EthTransferFailed(ethTransfers[i].to);
             ethSpent += ethTransfers[i].amount;
             unchecked {
                 ++i;

@@ -72,7 +72,7 @@ console.log("Waiting for confirmation...");
 
 const receipt = await publicClient.waitForTransactionReceipt({
   hash,
-  confirmations: 1,
+  confirmations: 5,
 });
 
 if (receipt.status === "reverted") {

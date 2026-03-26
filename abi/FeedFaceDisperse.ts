@@ -4,7 +4,11 @@
 
 export const feedFaceDisperseAbi = [
   { type: 'error', inputs: [], name: 'EthRefundFailed' },
-  { type: 'error', inputs: [], name: 'EthTransferFailed' },
+  {
+    type: 'error',
+    inputs: [{ name: 'to', internalType: 'address', type: 'address' }],
+    name: 'EthTransferFailed',
+  },
   {
     type: 'error',
     inputs: [{ name: 'token', internalType: 'address', type: 'address' }],
