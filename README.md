@@ -13,37 +13,62 @@ Deployed at `0x__TODO__` on most chains.
 
 ## Deployments
 
-| Chain         | Explorer                                                                              |
-| ------------- | ------------------------------------------------------------------------------------- |
-| Ethereum      | [etherscan.io](https://etherscan.io/address/0x__TODO__)                               |
-| Arbitrum      | [arbiscan.io](https://arbiscan.io/address/0x__TODO__)                                 |
-| Base          | [basescan.org](https://basescan.org/address/0x__TODO__)                               |
-| Optimism      | [optimistic.etherscan.io](https://optimistic.etherscan.io/address/0x__TODO__)         |
-| Polygon       | [polygonscan.com](https://polygonscan.com/address/0x__TODO__)                         |
-| Avalanche     | [snowscan.xyz](https://snowscan.xyz/address/0x__TODO__)                               |
-| BNB Chain     | [bscscan.com](https://bscscan.com/address/0x__TODO__)                                 |
-| Gnosis        | [gnosisscan.io](https://gnosisscan.io/address/0x__TODO__)                             |
-| Scroll        | [scrollscan.com](https://scrollscan.com/address/0x__TODO__)                           |
-| Linea         | [lineascan.build](https://lineascan.build/address/0x__TODO__)                         |
-| Blast         | [blastscan.io](https://blastscan.io/address/0x__TODO__)                               |
-| zkSync        | [era.zksync.network](https://era.zksync.network/address/0x__TODO__)                   |
-| Polygon zkEVM | [zkevm.polygonscan.com](https://zkevm.polygonscan.com/address/0x__TODO__)             |
-| Celo          | [celoscan.io](https://celoscan.io/address/0x__TODO__)                                 |
-| Mantle        | [mantlescan.xyz](https://mantlescan.xyz/address/0x__TODO__)                           |
-| Arbitrum Nova | [nova.arbiscan.io](https://nova.arbiscan.io/address/0x__TODO__)                       |
-| Zora          | [zorascan.xyz](https://zorascan.xyz/address/0x__TODO__)                               |
-| Mode          | [modescan.io](https://modescan.io/address/0x__TODO__)                                 |
-| Sonic         | [sonicscan.org](https://sonicscan.org/address/0x__TODO__)                             |
-| Unichain      | [uniscan.xyz](https://uniscan.xyz/address/0x__TODO__)                                 |
-| Ink           | [inkscan.xyz](https://inkscan.xyz/address/0x__TODO__)                                 |
-| Berachain     | [berascan.io](https://berascan.io/address/0x__TODO__)                                 |
-| Abstract      | [abscan.org](https://abscan.org/address/0x__TODO__)                                   |
-| Soneium       | [soneiumscan.org](https://soneiumscan.org/address/0x__TODO__)                         |
-| World Chain   | [worldscan.org](https://worldscan.org/address/0x__TODO__)                             |
-| Shape         | [shapescan.xyz](https://shapescan.xyz/address/0x__TODO__)                             |
-| Metis         | [andromeda-explorer.metis.io](https://andromeda-explorer.metis.io/address/0x__TODO__) |
-| Frax          | [fraxscan.com](https://fraxscan.com/address/0x__TODO__)                               |
-| opBNB         | [opbnb.bscscan.com](https://opbnb.bscscan.com/address/0x__TODO__)                     |
+| Chain                       | Explorer                                                                                                                                        |
+| --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| Ethereum                    | [etherscan.io](https://etherscan.io/address/0xFEED8f72DBc14fdf99D97E9CC1EAD65828a3FACE)                                                         |
+| Arbitrum                    | [arbiscan.io](https://arbiscan.io/address/0xFEED8f72DBc14fdf99D97E9CC1EAD65828a3FACE)                                                           |
+| Base                        | [basescan.org](https://basescan.org/address/0xFEED8f72DBc14fdf99D97E9CC1EAD65828a3FACE)                                                         |
+| Optimism                    | [optimistic.etherscan.io](https://optimistic.etherscan.io/address/0xFEED8f72DBc14fdf99D97E9CC1EAD65828a3FACE)                                   |
+| Polygon                     | [polygonscan.com](https://polygonscan.com/address/0x__TODO__)                                                                                   |
+| Avalanche                   | [snowscan.xyz](https://snowscan.xyz/address/0x__TODO__)                                                                                         |
+| BNB Chain                   | [bscscan.com](https://bscscan.com/address/0x__TODO__)                                                                                           |
+| Gnosis                      | [gnosisscan.io](https://gnosisscan.io/address/0x__TODO__)                                                                                       |
+| Scroll                      | [scrollscan.com](https://scrollscan.com/address/0x__TODO__)                                                                                     |
+| Linea                       | [lineascan.build](https://lineascan.build/address/0x__TODO__)                                                                                   |
+| Blast                       | [blastscan.io](https://blastscan.io/address/0x__TODO__)                                                                                         |
+| zkSync                      | [era.zksync.network](https://era.zksync.network/address/0x__TODO__)                                                                             |
+| Polygon zkEVM               | [zkevm.polygonscan.com](https://zkevm.polygonscan.com/address/0x__TODO__)                                                                       |
+| Celo                        | [celoscan.io](https://celoscan.io/address/0x__TODO__)                                                                                           |
+| Mantle                      | [mantlescan.xyz](https://mantlescan.xyz/address/0x__TODO__)                                                                                     |
+| Arbitrum Nova               | [nova.arbiscan.io](https://nova.arbiscan.io/address/0x__TODO__)                                                                                 |
+| Zora                        | [zorascan.xyz](https://zorascan.xyz/address/0x__TODO__)                                                                                         |
+| Mode                        | [modescan.io](https://modescan.io/address/0x__TODO__)                                                                                           |
+| Sonic                       | [sonicscan.org](https://sonicscan.org/address/0x__TODO__)                                                                                       |
+| Unichain                    | [uniscan.xyz](https://uniscan.xyz/address/0x__TODO__)                                                                                           |
+| Ink                         | [inkscan.xyz](https://inkscan.xyz/address/0x__TODO__)                                                                                           |
+| Berachain                   | [berascan.io](https://berascan.io/address/0x__TODO__)                                                                                           |
+| Abstract                    | [abscan.org](https://abscan.org/address/0x__TODO__)                                                                                             |
+| Soneium                     | [soneiumscan.org](https://soneiumscan.org/address/0x__TODO__)                                                                                   |
+| World Chain                 | [worldscan.org](https://worldscan.org/address/0x__TODO__)                                                                                       |
+| Shape                       | [shapescan.xyz](https://shapescan.xyz/address/0x__TODO__)                                                                                       |
+| Metis                       | [andromeda-explorer.metis.io](https://andromeda-explorer.metis.io/address/0x__TODO__)                                                           |
+| Frax                        | [fraxscan.com](https://fraxscan.com/address/0x__TODO__)                                                                                         |
+| opBNB                       | [opbnb.bscscan.com](https://opbnb.bscscan.com/address/0x__TODO__)                                                                               |
+| --                          | --                                                                                                                                              |
+| Testnets                    |                                                                                                                                                 |
+| Sepolia                     | [sepolia.etherscan.io](https://sourcify.dev/server/repo-ui/11155111/0xFEED8f72DBc14fdf99D97E9CC1EAD65828a3FACE)                                 |
+| Arbitrum Sepolia            | [arbitrum-sepolia.arbiscan.io](https://arbitrum-sepolia.arbiscan.io/address/0xFEED8f72DBc14fdf99D97E9CC1EAD65828a3FACE)                         |
+| Base Sepolia                | [base-sepolia.basescan.org](https://base-sepolia.basescan.org/address/0xFEED8f72DBc14fdf99D97E9CC1EAD65828a3FACE)                               |
+| Optimism Sepolia            | [optimism-sepolia.optimistic.etherscan.io](https://optimism-sepolia.optimistic.etherscan.io/address/0xFEED8f72DBc14fdf99D97E9CC1EAD65828a3FACE) |
+| Polygon Sepolia             | [polygon-sepolia.polygonscan.com](https://polygon-sepolia.polygonscan.com/address/0x__TODO__) no funds                                          |
+| BNB Chain Sepolia           | [bnb-sepolia.bscscan.com](https://bnb-sepolia.bscscan.com/address/0x__TODO__) no funds                                                          |
+| Gnosis Sepolia              | [gnosis-sepolia.gnosisscan.io](https://gnosis-sepolia.gnosisscan.io/address/0x__TODO__) no funds                                                |
+| Automata Testnet            | createx not deployed                                                                                                                            |
+| Boba Sepolia Testnet        | 0xFEED8f72DBc14fdf99D97E9CC1EAD65828a3FACE                                                                                                      |
+| Derive Testnet              | no funds                                                                                                                                        |
+| Lisk Sepolia Testnet        | 0xFEED8f72DBc14fdf99D97E9CC1EAD65828a3FACE                                                                                                      |
+| Metal Sepolia Testnet       | 0xFEED8f72DBc14fdf99D97E9CC1EAD65828a3FACE                                                                                                      |
+| Mode Sepolia Testnet        | 0xFEED8f72DBc14fdf99D97E9CC1EAD65828a3FACE (not verified, block explorer is down)                                                               |
+| opBNB Testnet               | 0xFEED8f72DBc14fdf99D97E9CC1EAD65828a3FACE                                                                                                      |
+| Orderly Sepolia Testnet     | createx not deployed                                                                                                                            |
+| RACE Sepolia Testnet        | alchemy not available                                                                                                                           |
+| Scroll Sepolia Testnet      | 0xFEED8f72DBc14fdf99D97E9CC1EAD65828a3FACE                                                                                                      |
+| Shape Sepolia Testnet       | 0xFEED8f72DBc14fdf99D97E9CC1EAD65828a3FACE                                                                                                      |
+| Unichain Sepolia Testnet    | 0xFEED8f72DBc14fdf99D97E9CC1EAD65828a3FACE                                                                                                      |
+| World Chain Sepolia Testnet | 0xFEED8f72DBc14fdf99D97E9CC1EAD65828a3FACE                                                                                                      |
+| X Layer Sepolia Testnet     | no funds                                                                                                                                        |
+| Zora Sepolia Testnet        | https://sepolia.explorer.zora.energy//address/0xFEED8f72DBc14fdf99D97E9CC1EAD65828a3FACE                                                        |
+| Avalanche Fuji Testnet      | no funds                                                                                                                                        |
 
 ## Usage
 

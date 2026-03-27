@@ -1,7 +1,9 @@
 import hre from "hardhat";
 import { artifacts, network } from "hardhat";
-import { verifyContract } from "@nomicfoundation/hardhat-verify/verify";
 import { concat, getCreate2Address, keccak256, pad } from "viem";
+
+import { ensureNativeBalanceForContractCall } from "./lib/ensureNativeBalanceForContractCall.js";
+import { verifyOnAllExplorers } from "./lib/verifyOnAllExplorers.js";
 
 const CREATEX = "0xba5Ed099633D3B313e4D5F7bdc1305d3c28ba5Ed" as const;
 
@@ -47,56 +49,58 @@ const expectedAddress = getCreate2Address({
 
 console.log(`Network:          ${networkName}`);
 console.log(`Deployer:         ${deployer.account.address}`);
-console.log(`Salt:             ${salt}`);
 console.log(`Init code hash:   ${initCodeHash}`);
 console.log(`Expected address: ${expectedAddress}`);
 console.log();
 
-const code = await publicClient.getCode({ address: expectedAddress });
-if (code && code !== "0x") {
-  console.log("Contract already deployed at this address. Skipping.");
-  process.exit(0);
-}
-
-console.log("Deploying via CreateX.deployCreate2...");
-
-const hash = await deployer.writeContract({
-  address: CREATEX,
-  abi: createXAbi,
-  functionName: "deployCreate2",
-  args: [salt, bytecode],
-});
-
-console.log(`Tx hash: ${hash}`);
-console.log("Waiting for confirmation...");
-
-const receipt = await publicClient.waitForTransactionReceipt({
-  hash,
-  confirmations: 5,
-});
-
-if (receipt.status === "reverted") {
-  console.error("Transaction reverted!");
+const createXCode = await publicClient.getCode({ address: CREATEX });
+if (!createXCode || createXCode === "0x") {
+  console.error(`CreateX is not deployed on this network at ${CREATEX}. Cannot use deployCreate2.`);
   process.exit(1);
 }
 
-const deployedCode = await publicClient.getCode({ address: expectedAddress });
-if (!deployedCode || deployedCode === "0x") {
-  console.error("Deployment verification failed -- contract not found at expected address");
-  process.exit(1);
-}
+console.log(`CreateX is deployed on this network at ${CREATEX}. Using deployCreate2.`);
 
-console.log(`Deployed at: ${expectedAddress}`);
-console.log();
-
-console.log("Verifying on block explorers (waiting 10s for indexing)...");
-await new Promise((r) => setTimeout(r, 10_000));
-
-for (const provider of ["etherscan", "blockscout", "sourcify"] as const) {
-  try {
-    await verifyContract({ address: expectedAddress, provider }, hre);
-    console.log(`  ${provider}: verified`);
-  } catch (e) {
-    console.log(`  ${provider}: ${e instanceof Error ? e.message : "failed"}`);
+const existingDeployment = await publicClient.getCode({ address: expectedAddress });
+if (existingDeployment && existingDeployment !== "0x") {
+  console.log("CREATE2 target already has code at the expected address. Skipping deploy.");
+} else {
+  const balanceError = await ensureNativeBalanceForContractCall(publicClient, deployer.account, {
+    address: CREATEX,
+    abi: createXAbi,
+    functionName: "deployCreate2",
+    args: [salt, bytecode],
+  });
+  if (balanceError) {
+    console.error(balanceError);
+    process.exit(1);
   }
+
+  console.log("Deploying via CreateX.deployCreate2...");
+
+  const { request } = await publicClient.simulateContract({
+    address: CREATEX,
+    abi: createXAbi,
+    functionName: "deployCreate2",
+    args: [salt, bytecode],
+  });
+
+  const hash = await deployer.writeContract(request);
+
+  console.log(`Tx hash: ${hash}`);
+  console.log("Waiting for confirmation...");
+
+  const receipt = await publicClient.waitForTransactionReceipt({
+    hash,
+    confirmations: 5,
+  });
+
+  if (receipt.status === "reverted") {
+    console.error("Transaction reverted!");
+    process.exit(1);
+  }
+  console.log(`Deployed at: ${expectedAddress}`);
+  console.log();
 }
+
+await verifyOnAllExplorers(hre, expectedAddress);
